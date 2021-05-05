@@ -24,7 +24,7 @@ PAY_TRACE_USERNAME=abc@abc.com
 PAY_TRACE_PASSWORD=abc123
 ````
 
-# Testing
+## Testing
 ```bash
 laravel new testing
 composer remove codepso/techgenies-mm
