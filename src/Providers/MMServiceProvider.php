@@ -28,7 +28,7 @@ class MMServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/mm.php' => config_path('mm.php'),
+            __DIR__.'/../../config/mm.php' => config_path('mm.php'),
         ], 'mm-config');
     }
 }
