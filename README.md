@@ -7,17 +7,28 @@
 * composer >= 2.0.7
 
 ## Installation
-
 ```bash
 composer require codepso/techgenies-mm
-php artisan vendor:publish --tag=mm-config
+php artisan vendor:publish --tag=mm-config (optional)
 ````
 
+## Update
+```bash
+composer update codepso/techgenies-mm
+```
+
+.env
+```bash
+PAY_TRACE_URL=https://api.paytrace.com
+PAY_TRACE_USERNAME=abc@abc.com
+PAY_TRACE_PASSWORD=abc123
+````
 
 # Testing
 ```bash
-composer update
+laravel new testing
 composer remove codepso/techgenies-mm
+php artisan serve
 ```
 
 ```bash
@@ -27,6 +38,11 @@ composer remove codepso/techgenies-mm
         "url": "./packages/techgenies/techgenies-mm"
     }
 ]
+```
+```bash
+composer update
+composer require codepso/techgenies-mm
+composer remove codepso/techgenies-mm (remove)
 ```
 
 # References
