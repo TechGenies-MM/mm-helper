@@ -24,12 +24,14 @@ docker run --rm -it -v $(pwd):/var/www codepso/php:8.0-cli-pgsql composer update
 
 ## Installation
 
+.env
 ```bash
 PAY_TRACE_URL=https://api.paytrace.com
 PAY_TRACE_USERNAME=abc@abc.com
 PAY_TRACE_PASSWORD=abc123
 ````
 
+app/Exceptions/Handler.php
 ```php
 use TechGenies\MM\Exceptions\PayTraceException;
 
@@ -41,6 +43,25 @@ public function register()
         return $e->getError();
     });
 }
+```
+
+## Use
+```php
+use TechGenies\MM\Api\PayTraceApi;
+
+try {
+    $payTraceApi = new PayTraceApi();
+    return $this->payTraceApi->createCustomer($data);
+} catch (PayTraceException $e) {
+    return $e->getError();
+}
+```
+
+```php
+use TechGenies\MM\Api\PayTraceApi;
+
+$payTraceApi = new PayTraceApi();
+return $this->payTraceApi->createCustomer($data);
 ```
 
 ## Testing
