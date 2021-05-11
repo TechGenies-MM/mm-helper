@@ -1,4 +1,4 @@
-# Mow Managers - Helper
+__# Mow Managers - Helper
 
 ## Requirements
 
@@ -26,7 +26,7 @@ docker run --rm -it -v $(pwd):/var/www codepso/php:8.0-cli-pgsql composer update
 
 .env
 ```bash
-PAY_TRACE_URL=https://api.paytrace.com
+PAY_TRACE_API_URL==https://api.paytrace.com
 PAY_TRACE_USERNAME=abc@abc.com
 PAY_TRACE_PASSWORD=abc123
 ````
@@ -51,7 +51,7 @@ use TechGenies\MM\Api\PayTraceApi;
 
 try {
     $payTraceApi = new PayTraceApi();
-    return $this->payTraceApi->createCustomer($data);
+    return $payTraceApi->createCustomer($data);
 } catch (PayTraceException $e) {
     return $e->getError();
 }
@@ -60,11 +60,18 @@ try {
 ```php
 use TechGenies\MM\Api\PayTraceApi;
 
-$this->payTraceApi = new PayTraceApi();
-
 $payTraceApi = new PayTraceApi();
-return $this->payTraceApi->createCustomer($data);
+return $payTraceApi->createCustomer($data);
 ```
+
+## Docs
+```php
+$payTraceApi->getCredentials();
+$payTraceApi->customers->create($data);
+$payTraceApi->customers->export($data);
+$payTraceApi->ach->vaultSale($data);
+```
+
 
 ## Testing
 ```bash
