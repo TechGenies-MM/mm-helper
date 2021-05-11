@@ -10,19 +10,16 @@ __# Mow Managers - Helper
 ```bash
 composer require codepso/techgenies-mm
 php artisan vendor:publish --tag=mm-config (optional)
+composer update codepso/techgenies-mm (optional)
 ````
 
-## Update
-```bash
-composer update codepso/techgenies-mm
-```
-### Docker
+### Installation (Docker)
 ```bash
 docker run --rm -it -v $(pwd):/var/www codepso/php:8.0-cli-pgsql composer require codepso/techgenies-mm
 docker run --rm -it -v $(pwd):/var/www codepso/php:8.0-cli-pgsql composer update codepso/techgenies-mm
 ```
 
-## Installation
+## Configuration
 
 .env
 ```bash
@@ -65,13 +62,57 @@ return $payTraceApi->customers->create($data);
 ```
 
 ## Docs
+
+### credentials: `getCredentials($params)`
 ```php
-$payTraceApi->getCredentials();
-$payTraceApi->customers->create($data);
-$payTraceApi->customers->export($data);
-$payTraceApi->ach->vaultSale($data);
+$credentials = $payTraceApi->getCredentials();
 ```
 
+### customers: `customers->export($params)`
+* **$params**: `array | required`
+    - **customer_id**: `string | required`
+
+```php
+// Get customer
+$params = [
+    'customer_id' => 'customerTest1'
+];
+$customer = $payTraceApi->customers->export($params);
+```
+
+### customers: `customers->create($params)`
+* **$params**: `array | required`
+    - **customer_id**: `string | required`
+
+```php
+$params = [
+    'customer_id' => $validated['customer_id'],
+    'credit_card' => [
+        'number' => $validated['credit_card_number'],
+        'expiration_month' => $validated['credit_card_expiration_month'],
+        'expiration_year' => $validated['credit_card_expiration_year'],
+    ],
+    'billing_address' => [
+        'name' => 'Juan Minaya',
+        'street_address' => '8320 E. West St.',
+        'city' => 'Spokane',
+        'state' => 'WA',
+        'zip' => '85284',
+    ],
+];
+$customer = $payTraceApi->customers->create($params);
+```
+
+### ACH: `ach->vaultSale($params)`
+* **$params**: `array | required`
+    - **customer_id**: `string | required`
+```php
+$params = [
+    'customer_id' => 'customerTest1',
+    'amount' => 2.00
+];
+$payTraceApi->ach->vaultSale($params);
+```
 
 ## Testing
 ```bash
