@@ -24,4 +24,20 @@ class ACH extends Entity
             throw new PayTraceException($e->response->body(), $e->getCode());
         }
     }
+
+    /**
+     * @param $data
+     * @return mixed
+     * @throws PayTraceException
+     */
+    public function holdByAccount($data): mixed
+    {
+        try {
+            $response = Http::withToken($this->accessToken)->asForm()->post($this->apiURL . '/v1/checks/hold/by_account', $data);
+            $response->throw();
+            return $response->json();
+        } catch (RequestException $e) {
+            throw new PayTraceException($e->response->body(), $e->getCode());
+        }
+    }
 }

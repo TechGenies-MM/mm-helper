@@ -1,4 +1,4 @@
-__# Mow Managers - Helper
+# Mow Managers - Helper
 
 ## Requirements
 
@@ -99,6 +99,7 @@ $params = [
         'state' => 'WA',
         'zip' => '85284',
     ],
+    'check' => [],
 ];
 $customer = $payTraceApi->customers->create($params);
 ```
