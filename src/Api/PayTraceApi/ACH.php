@@ -14,10 +14,10 @@ class ACH extends Entity
      * @return mixed
      * @throws PayTraceException
      */
-    public function vaultSale($data): mixed
+    public function saleByAccount($data): mixed
     {
         try {
-            $response = Http::withToken($this->accessToken)->asForm()->post($this->apiURL . '/v1/checks/sale/by_customer', $data);
+            $response = Http::withToken($this->accessToken)->asForm()->post($this->apiURL . '/v1/checks/sale/by_account', $data);
             $response->throw();
             return $response->json();
         } catch (RequestException $e) {
@@ -30,10 +30,10 @@ class ACH extends Entity
      * @return mixed
      * @throws PayTraceException
      */
-    public function holdByAccount($data): mixed
+    public function vaultSale($data): mixed
     {
         try {
-            $response = Http::withToken($this->accessToken)->asForm()->post($this->apiURL . '/v1/checks/hold/by_account', $data);
+            $response = Http::withToken($this->accessToken)->asForm()->post($this->apiURL . '/v1/checks/sale/by_customer', $data);
             $response->throw();
             return $response->json();
         } catch (RequestException $e) {
