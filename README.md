@@ -99,7 +99,10 @@ $params = [
         'state' => 'WA',
         'zip' => '85284',
     ],
-    'check' => [],
+    'check' => [
+        'account_number' => '123456',
+        'routing_number' => '325070760'
+    ]
 ];
 $customer = $payTraceApi->customers->create($params);
 ```
