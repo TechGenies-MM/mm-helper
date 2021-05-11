@@ -4,30 +4,36 @@ namespace TechGenies\MM\Api;
 
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
+use TechGenies\MM\Exceptions\PayTraceException;
 
 class PayTraceApi
 {
     private string $accessToken;
+    private string $apiURL;
 
     /**
      * PayTraceWS constructor.
-     * @throws RequestException
+     * @throws PayTraceException
      */
     public function __construct()
     {
-        $apiURL =  config('mm.payTrace.apiURL');
-        $username =  config('mm.payTrace.username');
-        $password =  config('mm.payTrace.password');
+        try {
+            $this->apiURL =  config('mm.payTrace.apiURL');
+            $username =  config('mm.payTrace.username');
+            $password =  config('mm.payTrace.password');
 
-        $credentials = [
-            'username' => $username,
-            'password' => $password,
-            'grant_type' => 'password'
-        ];
+            $data = [
+                'username' => $username,
+                'password' => $password,
+                'grant_type' => 'password'
+            ];
 
-        $response = Http::post($apiURL . '/oauth/token', $credentials);
-        $response->throw();
-        $this->accessToken = $response->json('access_token');
+            $response = Http::post($this->apiURL . '/oauth/token', $data);
+            $response->throw();
+            $this->accessToken = $response->json('access_token');
+        } catch (RequestException $e) {
+            throw new PayTraceException($e->response->body(), $e->getCode());
+        }
     }
 
     /**
@@ -53,5 +59,37 @@ class PayTraceApi
             'grantType' => 'password',
             'apiURL' => $apiURL
         ];
+    }
+
+    /**
+     * @param $data
+     * @return mixed
+     * @throws PayTraceException
+     */
+    public function createCustomer($data): mixed
+    {
+        try {
+            $response = Http::withToken($this->accessToken)->asForm()->post($this->apiURL . '/v1/customer/create', $data);
+            $response->throw();
+            return $response->json();
+        } catch (RequestException $e) {
+            throw new PayTraceException($e->response->body(), $e->getCode());
+        }
+    }
+
+    /**
+     * @param $data
+     * @return mixed
+     * @throws PayTraceException
+     */
+    public function ACHVaultSale($data): mixed
+    {
+        try {
+            $response = Http::withToken($this->accessToken)->asForm()->post($this->apiURL . '/v1/checks/sale/by_customer', $data);
+            $response->throw();
+            return $response->json();
+        } catch (RequestException $e) {
+            throw new PayTraceException($e->response->body(), $e->getCode());
+        }
     }
 }

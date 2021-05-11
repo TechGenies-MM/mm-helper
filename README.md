@@ -16,6 +16,11 @@ php artisan vendor:publish --tag=mm-config (optional)
 ```bash
 composer update codepso/techgenies-mm
 ```
+### Docker
+```bash
+docker run --rm -it -v $(pwd):/var/www codepso/php:8.0-cli-pgsql composer require codepso/techgenies-mm
+docker run --rm -it -v $(pwd):/var/www codepso/php:8.0-cli-pgsql composer update codepso/techgenies-mm
+```
 
 .env
 ```bash
