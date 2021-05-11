@@ -60,6 +60,8 @@ try {
 ```php
 use TechGenies\MM\Api\PayTraceApi;
 
+$this->payTraceApi = new PayTraceApi();
+
 $payTraceApi = new PayTraceApi();
 return $this->payTraceApi->createCustomer($data);
 ```
