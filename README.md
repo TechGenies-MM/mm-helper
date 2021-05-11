@@ -51,7 +51,7 @@ use TechGenies\MM\Api\PayTraceApi;
 
 try {
     $payTraceApi = new PayTraceApi();
-    return $payTraceApi->createCustomer($data);
+    return $payTraceApi->customers->create($data);
 } catch (PayTraceException $e) {
     return $e->getError();
 }
@@ -61,7 +61,7 @@ try {
 use TechGenies\MM\Api\PayTraceApi;
 
 $payTraceApi = new PayTraceApi();
-return $payTraceApi->createCustomer($data);
+return $payTraceApi->customers->create($data);
 ```
 
 ## Docs
