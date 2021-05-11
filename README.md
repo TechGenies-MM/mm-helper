@@ -22,12 +22,26 @@ docker run --rm -it -v $(pwd):/var/www codepso/php:8.0-cli-pgsql composer requir
 docker run --rm -it -v $(pwd):/var/www codepso/php:8.0-cli-pgsql composer update codepso/techgenies-mm
 ```
 
-.env
+## Installation
+
 ```bash
 PAY_TRACE_URL=https://api.paytrace.com
 PAY_TRACE_USERNAME=abc@abc.com
 PAY_TRACE_PASSWORD=abc123
 ````
+
+```php
+use TechGenies\MM\Exceptions\PayTraceException;
+
+public function register()
+{
+    //
+    
+    $this->renderable(function (PayTraceException $e, $request) {
+        return $e->getError();
+    });
+}
+```
 
 ## Testing
 ```bash
