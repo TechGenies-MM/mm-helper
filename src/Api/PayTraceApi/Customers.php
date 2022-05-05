@@ -81,6 +81,14 @@ class Customers extends Entity
             $payload['billing_address']['zip'] = $data['billing_address_zip'];
         }
 
+        if (isset($data['check_account_number'])) {
+            $payload['check']['account_number'] = $data['check_account_number'];
+        }
+
+        if (isset($data['check_routing_number'])) {
+            $payload['check']['routing_number'] = $data['check_routing_number'];
+        }
+
         return $payload;
     }
 
